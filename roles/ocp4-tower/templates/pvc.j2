@@ -1,0 +1,11 @@
+  kind: PersistentVolumeClaim
+  apiVersion: v1
+  metadata:
+    name: {{ postgresql_name | default ('postgresql2') }}
+    namespace: {{ tower_project | default ('tower') }}
+  spec:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: {{ postgresql_size | default ('20') }}Gi

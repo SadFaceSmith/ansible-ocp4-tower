@@ -1,0 +1,13 @@
+---
+  - name: Ansible Tower OpenShift Install
+    hosts: localhost
+    connection: local
+    become: false
+    vars_prompt:
+      - name: ocp_user
+        prompt: Enter OpenShift username
+        private: no
+      - name: ocp_password
+        prompt: Enter OpenShift password
+    roles:
+      - ocp4-tower

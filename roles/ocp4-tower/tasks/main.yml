@@ -1,0 +1,36 @@
+---
+# tasks file for ocp4-tower
+- name: Template Inventory
+  template:
+    src: inventory.j2
+    dest: "{{ playbook_dir }}/inventory.yml"
+- name: oc login
+  command: "oc login -u {{ ocp_user }} -p {{ ocp_password }} {{ ocp_url | default ('https://api.ocp4.sbx2.dso.ncps.us-cert.gov:6443') }}"
+
+- name: Template PVC
+  template:
+    src: pvc.j2
+    dest: "{{ playbook_dir}}/pvc.yml"
+
+- name: Create PVC
+  command: "oc apply -f {{ playbook_dir}}/pvc.yml"
+
+
+- name: Create Installer Dir
+  file:
+    path: "{{ playbook_dir }}/installer"
+    state: directory
+
+- name: Unarchive Ansible Tower Installer
+  unarchive:
+    src: https://releases.ansible.com/ansible-tower/setup_openshift/ansible-tower-openshift-setup-3.8.2-1.tar.gz
+    dest: "{{ playbook_dir }}"
+    remote_src: yes
+  register: r_unarchive
+
+- name: Run Ansible Tower Installer
+  command: "{{ playbook_dir }}/ansible-tower-openshift-setup-3.8.2-1./setup_openshift.sh -i {{ playbook_dir }}/inventory.yml -e openshift_password={{ ocp_password }}"
+
+  
+
+  
