@@ -34,7 +34,7 @@ pg_sslmode='prefer'  # set to 'verify-full' for client-side enforced SSL
 # Deploy into Openshift
 # =====================
 
-openshift_host={{ ocp_url | default ('https://api.ocp4.sbx2.dso.ncps.us-cert.gov:6443') }}
+openshift_host={{ ocp_url | default ('https://api.ocp4.example.com:6443') }}
 openshift_skip_tls_verify=true
 openshift_project={{ tower_project | default ('tower') }}
 openshift_user={{ ocp_user | default ('kubeadmin') }}
