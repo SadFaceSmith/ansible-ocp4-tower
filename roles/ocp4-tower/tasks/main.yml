@@ -5,7 +5,7 @@
     src: inventory.j2
     dest: "{{ playbook_dir }}/inventory.yml"
 - name: oc login
-  command: "oc login -u {{ ocp_user }} -p {{ ocp_password }} {{ ocp_url | default ('https://api.ocp4.sbx2.dso.ncps.us-cert.gov:6443') }}"
+  command: "oc login -u {{ ocp_user }} -p {{ ocp_password }} {{ ocp_url | default ('https://api.ocp4.example.com:6443') }}"
 
 - name: Template PVC
   template:
